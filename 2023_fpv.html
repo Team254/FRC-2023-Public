@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, minimum-scale=0.1">
+	</head>
+	<body style="margin: 0px; background: #0e0e0e; text-align: center; overflow: hidden;">
+		<img id="A" style="-webkit-user-select: none; height:100%; transform: translateX(-961px) scale(1.35, 1); overflow: hidden; position: absolute; top: 0; left: 0; z-index: 1000;" src="http://10.2.54.11:5800">
+		<img id="B" style="-webkit-user-select: none; height:100%; transform: translateX(-961px) scale(1.35, 1); overflow: hidden; position: absolute; top: 0; left: 0; display: none" src="http://0.0.0.0">
+		<!-- <div id="A" style="position: absolute; top: 0; left: 0; z-index: 1000; color: white">A</div>
+		<div id="B" style="position: absolute; top: 0; left: 0; display: none; color: white">B</div> -->
+		<script>
+			const refreshTimeSeconds = 5;
+			const blankingIntervalSeconds = 1;
+			const src = "http://10.2.54.11:5800";
+			const blankSrc = "http://0.0.0.0"
+
+
+			const USE_DOUBLE_BUFFER = true;
+
+
+			let visibleId = "A";
+			let invisibleId = "B";
+
+			setInterval(() => {
+				if (USE_DOUBLE_BUFFER) {
+					console.log("double buffer switching to " + visibleId)
+					//1. load image in background
+					document.getElementById(invisibleId).src = src + "?ts=" + Date.now()
+					document.getElementById(invisibleId).style.display = "none"
+					document.getElementById(invisibleId).style.zIndex = "0"
+
+					setTimeout(() => {
+						//2. after blankingIntervalSeconds, move background in front of foreground and show
+						console.log("swap front: hide " + visibleId + "-> show " + invisibleId)
+						document.getElementById(invisibleId).style.display = ""
+						document.getElementById(invisibleId).style.display = "1000"
+						document.getElementById(visibleId).style.zIndex = "0"
+
+						setTimeout(() => {
+							console.log("hide back " + visibleId)
+							//3. after another blankingIntervalSeconds, unrender the background one
+							document.getElementById(visibleId).style.display = "none"
+							document.getElementById(visibleId).style.src = blankSrc
+							
+							invisibleId = visibleId;
+							visibleId = visibleId === "A" ? "B" : "A";
+
+						}, blankingIntervalSeconds * 1000)
+					}, blankingIntervalSeconds * 1000)
+				} else {
+					window.location.reload();
+				}
+			}, refreshTimeSeconds * 1000);
+		</script>
+	</body>
+</html>
