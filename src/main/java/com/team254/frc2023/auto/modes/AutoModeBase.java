@@ -69,13 +69,6 @@ public abstract class AutoModeBase {
         return isActive();
     }
 
-    /*public void waitForDriverConfirm() throws AutoModeEndedException {
-        if (!mIsInterrupted) {
-            interrupt();
-        }
-        runAction(new NoopAction());
-    }*/
-
     public void interrupt() {
         System.out.println("** Auto mode interrrupted!");
         mIsInterrupted = true;

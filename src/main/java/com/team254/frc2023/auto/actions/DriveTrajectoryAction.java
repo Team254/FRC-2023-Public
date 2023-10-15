@@ -9,7 +9,6 @@ import com.team254.lib.trajectory.TimedView;
 import com.team254.lib.trajectory.Trajectory;
 import com.team254.lib.trajectory.TrajectoryIterator;
 import com.team254.lib.trajectory.timing.TimedState;
-import com.team254.lib.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 
 public class DriveTrajectoryAction implements Action {

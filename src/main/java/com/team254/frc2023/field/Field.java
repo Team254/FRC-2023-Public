@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
-import com.team254.lib.util.Units;
 
 public class Field {
 
@@ -75,7 +74,6 @@ public class Field {
 
     }
 
-    //TODO Fix for Blue Alliance
     public static class Blue {
         public static final HashMap<Integer, AprilTag> kAprilTagMap = new HashMap<>();
         // From field manual: 46.355 cm

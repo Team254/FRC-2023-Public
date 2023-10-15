@@ -1,6 +1,5 @@
 package com.team254.lib.motion;
 
-import com.team254.lib.motion.IMotionProfileGoal.CompletionBehavior;
 import com.team254.lib.util.Util;
 
 /**

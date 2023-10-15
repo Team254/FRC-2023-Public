@@ -5,8 +5,10 @@ import com.team254.frc2023.auto.actions.*;
 import com.team254.frc2023.subsystems.Drive;
 import com.team254.frc2023.subsystems.Superstructure;
 import com.team254.lib.geometry.Rotation2d;
-import com.team254.lib.geometry.Translation2d;
 
+/**
+ * Center starting location - Scores one high cone. Ends with bridge dock.
+ */
 public class CenterOneMode extends AutoModeBase {
 
     AutoModeSelector.DockMode mDockMode;

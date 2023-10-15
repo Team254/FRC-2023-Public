@@ -7,7 +7,6 @@ import com.team254.lib.geometry.IPose2d;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.swerve.*;
 
-
 public class SwerveDriveDynamicsConstraint<S extends IPose2d<S> & ICourse2d<S> & ICurvature<S> & IHeadingRate<S>> implements TimingConstraint<S> {
 
     protected final SwerveDriveKinematics kinematics_;

@@ -1,14 +1,7 @@
 package com.team254.frc2023.auto.actions;
 
-import com.team254.frc2023.RobotState;
-import com.team254.frc2023.planners.AutoAlignPointSelector;
-import com.team254.frc2023.subsystems.Drive;
 import com.team254.frc2023.subsystems.RollerClaw;
 import com.team254.frc2023.subsystems.Superstructure;
-import com.team254.lib.geometry.Pose2d;
-import edu.wpi.first.wpilibj.Timer;
-
-import java.util.Optional;
 
 public class FlingAction implements Action {
     protected final Superstructure mSuperstructure = Superstructure.getInstance();

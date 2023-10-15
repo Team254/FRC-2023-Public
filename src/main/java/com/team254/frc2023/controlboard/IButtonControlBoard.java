@@ -15,17 +15,30 @@ public interface IButtonControlBoard {
     boolean getScoreMid();
 
     boolean getPickupFeederCone();
+
     boolean getPickupGroundCone();
+
     boolean getPickupFeederCube();
+
     boolean getPickupGroundCube();
+
     boolean getOpenClaw();
+
     boolean getCloseClaw();
+
     boolean getStow();
+
     boolean getTestButton();
+
     boolean getToggleClimbMode();
+
     double getManualForksJog();
+
     boolean getForksUp();
+
     boolean getFling();
+
     boolean getForksDown();
+    
     boolean getGroundIntakePush();
 }

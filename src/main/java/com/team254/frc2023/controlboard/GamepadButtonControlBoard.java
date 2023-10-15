@@ -2,11 +2,7 @@ package com.team254.frc2023.controlboard;
 
 import com.team254.frc2023.Constants;
 import com.team254.frc2023.controlboard.XboxController.Button;
-import com.team254.lib.geometry.Rotation2d;
-import com.team254.lib.util.DelayedBoolean;
 import com.team254.lib.util.Util;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Timer;
 
 public class GamepadButtonControlBoard implements IButtonControlBoard {
     private static GamepadButtonControlBoard mInstance = null;

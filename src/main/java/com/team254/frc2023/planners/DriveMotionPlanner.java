@@ -32,8 +32,6 @@ import com.team254.lib.util.CSVWritable;
 import com.team254.lib.util.SynchronousPIDF;
 import com.team254.lib.util.Util;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class DriveMotionPlanner implements CSVWritable {
     private static final double kMaxDx = 0.0127; // m
     private static final double kMaxDy = 0.0127; // m
@@ -79,7 +77,7 @@ public class DriveMotionPlanner implements CSVWritable {
 
     // PID controllers for path following
     SynchronousPIDF mXPIDF;
-    SynchronousPIDF mYPIDF;         // TODO combine with X?
+    SynchronousPIDF mYPIDF;
     SynchronousPIDF mHeadingPIDF;
 
     double mDt = 0.0;
@@ -87,13 +85,6 @@ public class DriveMotionPlanner implements CSVWritable {
     public DriveMotionPlanner(SwerveDriveKinematics kinematics, SwerveKinematicLimits kinematic_limits) {
         swerve_kinematics_ = kinematics;
         swerve_kinematic_limits_ = kinematic_limits;
-
-//        SmartDashboard.putString("Steering Direction", "");
-//        SmartDashboard.putString("Last Pose", "");
-//        SmartDashboard.putString("Current Pose", "");
-//        SmartDashboard.putNumber("Finished Traj?", -1.0);
-//        SmartDashboard.putNumber("Adaptive Lookahead", -1.0);
-
     }
 
     public void setTrajectory(final TrajectoryIterator<TimedState<Pose2dWithMotion>> trajectory) {
@@ -147,7 +138,6 @@ public class DriveMotionPlanner implements CSVWritable {
         List<Pose2d> waypoints_maybe_flipped = waypoints;
         List<Rotation2d> headings_maybe_flipped = headings;
         final Pose2d flip = Pose2d.fromRotation(new Rotation2d(-1, 0, false));
-        // TODO re-architect the spline generator to support reverse.
         if (reversed) {
             waypoints_maybe_flipped = new ArrayList<>(waypoints.size());
             headings_maybe_flipped = new ArrayList<>(headings.size());
@@ -297,7 +287,6 @@ public class DriveMotionPlanner implements CSVWritable {
         TimedState<Pose2dWithMotion> lookahead_state = mCurrentTrajectory.preview(lookahead_time).state();
         double actual_lookahead_distance = mSetpoint.state().distance(lookahead_state.state());
         double adaptive_lookahead_distance = mSpeedLookahead.getLookaheadForSpeed(mSetpoint.velocity());
-//        SmartDashboard.putNumber("Adaptive Lookahead", adaptive_lookahead_distance);
         //Find the Point on the Trajectory that is Lookahead Distance Away
         while (actual_lookahead_distance < adaptive_lookahead_distance &&
                 mCurrentTrajectory.getRemainingProgress() > lookahead_time) {
@@ -315,21 +304,15 @@ public class DriveMotionPlanner implements CSVWritable {
                     , lookahead_state.velocity(), lookahead_state.acceleration());
         }
 
-
-//        SmartDashboard.putNumber("Path X", lookahead_state.state().getTranslation().x());
-//        SmartDashboard.putNumber("Path Y", lookahead_state.state().getTranslation().y());
-//        SmartDashboard.putNumber("Path Velocity", lookahead_state.velocity());
-
         //Find the vector between robot's current position and the lookahead state
         Translation2d lookaheadTranslation = new Translation2d(current_state.getTranslation(),
                 lookahead_state.state().getTranslation());
 
         //Set the steering direction as the direction of the vector
         Rotation2d steeringDirection = lookaheadTranslation.direction();
-//        SmartDashboard.putString("Steering Direction", steeringDirection.toString());
+
         //Convert from field-relative steering direction to robot-relative
         steeringDirection = steeringDirection.rotateBy(current_state.inverse().getRotation());
-//        SmartDashboard.putString("Steering Direction After Rotation", steeringDirection.toString());
 
         //Use the Velocity Feedforward of the Closest Point on the Trajectory
         double normalizedSpeed = Math.abs(mSetpoint.velocity()) / Constants.kMaxVelocityMetersPerSecond;
@@ -344,7 +327,6 @@ public class DriveMotionPlanner implements CSVWritable {
 
         //Convert the Polar Coordinate (speed, direction) into a Rectangular Coordinate (Vx, Vy) in Robot Frame
         final Translation2d steeringVector = new Translation2d(steeringDirection.cos() * normalizedSpeed, steeringDirection.sin() * normalizedSpeed);
-//        SmartDashboard.putString("Steering Vector", steeringVector.toString());
         ChassisSpeeds chassisSpeeds = new ChassisSpeeds(steeringVector.x() * Constants.kMaxVelocityMetersPerSecond, steeringVector.y() * Constants.kMaxVelocityMetersPerSecond, feedforwardOmegaRadiansPerSecond);
 
 
@@ -352,8 +334,7 @@ public class DriveMotionPlanner implements CSVWritable {
         final double kThetakP = 3.5;
         final double kThetakD = 0.0;
         final double kPositionkP = 2.0;
-//        SmartDashboard.putNumber("x correction", kPositionkP * mError.getTranslation().x());
-//        SmartDashboard.putNumber("y correction", kPositionkP * mError.getTranslation().y());
+
         chassisSpeeds.vxMetersPerSecond =
                 chassisSpeeds.vxMetersPerSecond + kPositionkP * mError.getTranslation().x();
         chassisSpeeds.vyMetersPerSecond =
@@ -363,9 +344,6 @@ public class DriveMotionPlanner implements CSVWritable {
     }
 
     public ChassisSpeeds update(double timestamp, Pose2d current_state, Twist2d current_velocity) {
-        //SmartDashboard.putNumber("Auto Error X", mError.getTranslation().x());
-        //SmartDashboard.putNumber("Auto Error Y", mError.getTranslation().y());
-        //SmartDashboard.putNumber("Auto Error Th", mError.getRotation().getDegrees());
         if (mCurrentTrajectory == null) return null;
 
         if (!Double.isFinite(mLastTime)) mLastTime = timestamp;
@@ -402,7 +380,6 @@ public class DriveMotionPlanner implements CSVWritable {
                 RobotState.getInstance().setDisplaySetpointPose(Pose2d.fromTranslation(RobotState.getInstance().getFieldToOdom(timestamp)).transformBy(sample_point.state().state().getPose()));
                 mSetpoint = sample_point.state();
                 mOutput = updateRamsete(sample_point.state(), current_state, current_velocity);
-                //System.out.println(mOutput);
             } else if (mFollowerType == FollowerType.PID) {
                 sample_point = mCurrentTrajectory.advance(mDt);
                 RobotState.getInstance().setDisplaySetpointPose(Pose2d.fromTranslation(RobotState.getInstance().getFieldToOdom(timestamp)).transformBy(sample_point.state().state().getPose()));
@@ -445,11 +422,9 @@ public class DriveMotionPlanner implements CSVWritable {
                 mOutput = updatePurePursuit(current_state,0.0);
             }
         } else {
-            // TODO Possibly switch to a pose stabilizing controller?
             mOutput = new ChassisSpeeds();
         }
 
-//        SmartDashboard.putString("Auto Error", mError.toString());
         return mOutput;
     }
 

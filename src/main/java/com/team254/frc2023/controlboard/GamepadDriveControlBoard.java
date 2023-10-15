@@ -1,8 +1,6 @@
 package com.team254.frc2023.controlboard;
 
 import com.team254.frc2023.Constants;
-import com.team254.frc2023.controlboard.XboxController.Button;
-import com.team254.lib.geometry.Rotation2d;
 
 public class GamepadDriveControlBoard implements IDriveControlBoard {
     private static GamepadDriveControlBoard mInstance = null;

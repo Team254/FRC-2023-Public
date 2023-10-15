@@ -1,19 +1,11 @@
 package com.team254.lib.drivers;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
-import com.ctre.phoenix.ErrorCode;
-import com.ctre.phoenixpro.configs.MotorOutputConfigs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.team254.frc2023.subsystems.LED;
 import com.team254.lib.util.TalonConfigEquality;
 import edu.wpi.first.wpilibj.DriverStation;
 
-import com.ctre.phoenixpro.StatusCode;
 import com.ctre.phoenixpro.hardware.TalonFX;
-import com.ctre.phoenixpro.hardware.core.CoreTalonFX;
 
 public class TalonUtil {
 

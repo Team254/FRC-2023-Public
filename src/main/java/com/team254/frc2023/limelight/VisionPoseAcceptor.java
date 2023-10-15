@@ -15,7 +15,7 @@ public class VisionPoseAcceptor {
         }
 
         boolean rotatingTooFast = Math.abs(robotVelocity.dtheta) >= 1.0;
-        if (!rotatingTooFast) { //TODO Add to Constant File
+        if (!rotatingTooFast) {
             return true;
         } else {
             return false;

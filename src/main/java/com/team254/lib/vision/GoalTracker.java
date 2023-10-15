@@ -24,7 +24,8 @@ public class GoalTracker {
         // The timestamp of the latest time that the goal has been observed
         public double latest_timestamp;
 
-        // The percentage of the goal tracking time during which this goal has been observed (0 to 1)
+        // The percentage of the goal tracking time during which this goal has
+        // been observed (0 to 1)
         public double stability;
 
         // The track id
@@ -124,6 +125,7 @@ public class GoalTracker {
             }
             if (!hasUpdatedTrack) {
                 // Add a new track.
+                // System.out.println("Created new track");
                 mCurrentTracks.add(GoalTrack.makeNewTrack(mConfiguration, timestamp, target, mNextId));
                 ++mNextId;
             }

@@ -80,7 +80,6 @@ public class Cancoders {
             StatusCode settingsCode = configurator.apply(canCoderConfig);
             StatusCode sensorCode = thisCancoder.getAbsolutePosition().setUpdateFrequency(20);
 
-
             goodInit = settingsCode == StatusCode.OK && sensorCode == StatusCode.OK;
 
             timedOut = (Timer.getFPGATimestamp()) - startTime >= kBootUpErrorAllowanceTime;

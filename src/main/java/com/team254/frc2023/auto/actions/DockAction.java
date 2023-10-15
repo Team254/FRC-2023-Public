@@ -6,9 +6,7 @@ import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.swerve.ChassisSpeeds;
 import com.team254.lib.util.SynchronousPIDF;
 import com.team254.lib.util.TimeDelayedBoolean;
-import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.List;
 
@@ -48,7 +46,6 @@ public class DockAction implements Action {
     @Override
     public void update() {
         double t = Timer.getFPGATimestamp();
-//        SmartDashboard.putBoolean("balance mode", mBalanceMode);
         if(!mBalanceMode) {
             if(t - mStartTime > mTimeout) {
                 System.out.println("Unable to dock");

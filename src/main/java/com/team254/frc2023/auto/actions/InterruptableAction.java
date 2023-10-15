@@ -1,13 +1,6 @@
 package com.team254.frc2023.auto.actions;
 
-import edu.wpi.first.util.function.BooleanConsumer;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.BooleanSupplier;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class InterruptableAction implements Action {
 

@@ -18,6 +18,7 @@ public class FalconMagSwerveModule extends SwerveModule {
         DutyCycle cycle = new DutyCycle(in);
         mMagEncoder =  new DutyCycleEncoder(cycle);
         mMagEncoder.setDistancePerRotation(360);
+        // System.out.println("constructed!");
 
         rezeroSteeringMotor();
 
@@ -26,6 +27,10 @@ public class FalconMagSwerveModule extends SwerveModule {
 
      @Override
     public Rotation2d getSteerEncoderAngle() {
+        // if (mMagEncoder == null) {
+        //     System.out.println("Mag Encoder Null");
+        //     return Rotation2d.identity();
+        // }
         return Rotation2d.fromDegrees(mMagEncoder.getDistance());
     }
 

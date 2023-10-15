@@ -1,7 +1,6 @@
 package com.team254.frc2023.controlboard;
 
 import com.team254.frc2023.Constants;
-import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.Joystick;
 

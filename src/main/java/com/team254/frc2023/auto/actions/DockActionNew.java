@@ -12,7 +12,6 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.List;
 import java.util.Optional;
@@ -122,11 +121,6 @@ public class DockActionNew implements Action {
                 }
                 break;
             case LEVEL:
-                // final state
-//                if (unleveled.update(Math.abs(getInclination()) > gyroIsLevelAngle, 2.0)) {
-//                    System.out.println("T: level -> level fine");
-//                    return DockingState.LEVEL_FINE_ADJUST;
-//                }
                 break;
         }
         // by default do not transition

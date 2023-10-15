@@ -7,6 +7,9 @@ import com.team254.frc2023.subsystems.Superstructure;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 
+/*
+ * Center starting location - Scores high cone, goes over bridge to intake cube, and scores high cube. Ends with bridge dock.
+ */
 public class CenterTwoMode extends AutoModeBase {
 
     AutoModeSelector.DockMode mDockMode;

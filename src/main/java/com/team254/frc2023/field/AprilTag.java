@@ -3,8 +3,6 @@ package com.team254.frc2023.field;
 import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Translation2d;
 
-import java.util.Optional;
-
 public class AprilTag {
 
     private int id;

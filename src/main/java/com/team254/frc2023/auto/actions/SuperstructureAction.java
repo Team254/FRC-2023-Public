@@ -1,6 +1,5 @@
 package com.team254.frc2023.auto.actions;
 
-import com.team254.frc2023.statemachines.SuperstructureState;
 import com.team254.frc2023.subsystems.RollerClaw;
 import com.team254.frc2023.subsystems.Superstructure;
 

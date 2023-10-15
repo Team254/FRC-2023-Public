@@ -68,7 +68,6 @@ public class SuperstructureStateMachine {
     }
 
     private void updateMotionPlannerDesired(SuperstructureState currentState) {
-        // TODO implement regeneration of desired state
         mPlanner.setDesiredState(mDesiredEndState, currentState);
     }
 

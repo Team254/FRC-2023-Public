@@ -7,6 +7,9 @@ import com.team254.frc2023.subsystems.Superstructure;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 
+/*
+ * Cable Protector/Bump Side starting location - Scores high cone, intakes inside cube, scores high cube, intakes outside cube, scores mid cube.
+ */
 public class CPThreeInsideFirstMode extends AutoModeBase {
 
     public CPThreeInsideFirstMode(AutoModeSelector.DockMode dockMode) {

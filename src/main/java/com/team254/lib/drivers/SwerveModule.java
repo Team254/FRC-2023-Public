@@ -1,20 +1,16 @@
 package com.team254.lib.drivers;
 
-import com.ctre.phoenixpro.configs.MotorOutputConfigs;
 import com.ctre.phoenixpro.configs.TalonFXConfiguration;
 import com.ctre.phoenixpro.controls.*;
 import com.ctre.phoenixpro.hardware.TalonFX;
-import com.ctre.phoenixpro.BaseStatusSignalValue;
 import com.ctre.phoenixpro.StatusSignalValue;
 import com.ctre.phoenixpro.signals.InvertedValue;
 import com.ctre.phoenixpro.signals.NeutralModeValue;
 import com.team254.lib.geometry.Rotation2d;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.team254.frc2023.Constants;
 import com.team254.lib.swerve.SwerveModuleState;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public abstract class SwerveModule extends Subsystem {
     private final TalonFX mSteeringMotor;

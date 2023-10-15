@@ -1,7 +1,6 @@
 package com.team254.frc2023.planners;
 
 import com.team254.frc2023.Constants;
-import com.team254.frc2023.RobotState;
 import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Translation2d;
 import com.team254.lib.geometry.Twist2d;
@@ -16,8 +15,8 @@ import java.util.OptionalDouble;
 
 public class AutoAlignMotionPlanner {
 
-    private ProfileFollower mXController = new ProfileFollower(2.5, 0.0, 0.0, 1.0, 0.0, 0.0); //new ProfileFollower(1.5, 0.0, 0.0, 1.0, 0.0, 0.0);
-    private ProfileFollower mYController = new ProfileFollower(2.5, 0.0, 0.0, 1.0, 0.0, 0.0);// new ProfileFollower(1.5, 0.0, 0.0, 1.0, 0.0, 0.0);
+    private ProfileFollower mXController = new ProfileFollower(2.5, 0.0, 0.0, 1.0, 0.0, 0.0);
+    private ProfileFollower mYController = new ProfileFollower(2.5, 0.0, 0.0, 1.0, 0.0, 0.0);
     private ProfileFollower mThetaController = new ProfileFollower(1.5, 0.0, 0.0, 1.0, 0.0, 0.0);
 
     boolean mAutoAlignComplete = false;
@@ -42,10 +41,6 @@ public class AutoAlignMotionPlanner {
     }
 
     public synchronized ChassisSpeeds updateAutoAlign(double timestamp, Pose2d current_odom_to_vehicle, Pose2d current_field_to_odom, Twist2d current_vel) {
-//        SmartDashboard.putNumber("X Goal", mXController.getGoal().pos());
-//        SmartDashboard.putNumber("Y Goal", mYController.getGoal().pos());
-//        SmartDashboard.putNumber("Theta Goal", mThetaController.getGoal().pos());
-
         var odom_to_target_point = current_field_to_odom.inverse().transformBy(mFieldToTargetPoint);
 
         mXController.setGoalAndConstraints(
@@ -90,8 +85,7 @@ public class AutoAlignMotionPlanner {
                 yWithinDeadband ? 0.0 : yOutput,
                 thetaWithinDeadband ? 0.0 : thetaOutput,
                 current_field_to_odom.getRotation().rotateBy(current_odom_to_vehicle.getRotation()));
-//        SmartDashboard.putString("Auto Align Chassis Speed", setpoint.toString());
-        mAutoAlignComplete = thetaWithinDeadband && xWithinDeadband && yWithinDeadband;// && mThetaController.onTarget();
+        mAutoAlignComplete = thetaWithinDeadband && xWithinDeadband && yWithinDeadband;
 
         if (mStartTime.isPresent() && mAutoAlignComplete) {
             System.out.println("Auto align took: " + (Timer.getFPGATimestamp() - mStartTime.getAsDouble()));

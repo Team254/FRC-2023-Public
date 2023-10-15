@@ -1,7 +1,6 @@
 package com.team254.lib.util;
 
 import com.ctre.phoenixpro.configs.*;
-import edu.wpi.first.wpilibj.DriverStation;
 
 public class TalonConfigEquality {
 

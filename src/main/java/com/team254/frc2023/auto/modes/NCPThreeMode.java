@@ -1,13 +1,14 @@
 package com.team254.frc2023.auto.modes;
 
-import com.team254.frc2023.auto.AutoModeEndedException;
 import com.team254.frc2023.auto.actions.*;
-import com.team254.frc2023.statemachines.SuperstructureState.SuperstructureConfig;
 import com.team254.frc2023.subsystems.Drive;
 import com.team254.frc2023.subsystems.Superstructure;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 
+/**
+ * Non Cable Protector/Non Bump Side starting location - Scores high cone, intakes outside cube, scores high cube, intakes inside cube, scores mid cube, backs off to mid line.
+ */
 public class NCPThreeMode extends AutoModeBase {
     public NCPThreeMode() {
         addAction(new ParallelAction(

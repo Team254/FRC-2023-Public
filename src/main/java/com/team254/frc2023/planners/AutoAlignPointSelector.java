@@ -1,7 +1,5 @@
 package com.team254.frc2023.planners;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,11 +8,9 @@ import com.team254.frc2023.field.AprilTag;
 import com.team254.frc2023.field.Field;
 import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Rotation2d;
-import com.team254.lib.geometry.Translation2d;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoAlignPointSelector {
 
@@ -135,7 +131,6 @@ public class AutoAlignPointSelector {
         if (targetPose.isPresent() && targetPose.get().distance(currentPoint) > Constants.kAutoAlignAllowableDistance) {
             return Optional.empty();
         }
-        //SmartDashboard.putString("Target Pose", targetPose.toString());
         return targetPose;
     }  
 }

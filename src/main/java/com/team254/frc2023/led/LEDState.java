@@ -5,9 +5,9 @@ import com.ctre.phoenix.led.CANdle;
 public class LEDState implements ILEDDisplayable {
     public static final LEDState kOff = new LEDState(0, 0, 0); //No Color
 
-    public static final LEDState kRobotZeroedWithGoodBattery = new LEDState(0, 255, 0);//Green
+    public static final LEDState kRobotZeroedWithGoodBattery = new LEDState(0, 255, 0); //Green
 
-    public static final LEDState kBatteryLow = new LEDState(255, 0, 0);//Red
+    public static final LEDState kBatteryLow = new LEDState(255, 0, 0); //Red
 
     public static final LEDState kRed = new LEDState(255, 0 , 0);
     public static final LEDState kBlue = new LEDState(0, 0 , 255);

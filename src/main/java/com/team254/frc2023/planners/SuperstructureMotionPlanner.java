@@ -2,8 +2,6 @@ package com.team254.frc2023.planners;
 
 import com.team254.frc2023.Constants;
 import com.team254.frc2023.statemachines.SuperstructureState;
-import com.team254.frc2023.subsystems.Superstructure;
-import com.team254.lib.util.Util;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;

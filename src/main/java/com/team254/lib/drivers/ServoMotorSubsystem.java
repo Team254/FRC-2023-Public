@@ -19,7 +19,6 @@ import com.team254.lib.util.ReflectingCSVWriter;
 import com.team254.lib.util.Util;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.function.UnaryOperator;
@@ -35,7 +34,7 @@ public abstract class ServoMotorSubsystem extends Subsystem {
     public static class TalonFXConstants {
         public CanDeviceId id = new CanDeviceId(-1);
         public boolean counterClockwisePositive = true;
-        public boolean invert_sensor_phase = false; // TODO figure out sensor phase in new API
+        public boolean invert_sensor_phase = false;
         public int encoder_ppr = 2048;
     }
 
@@ -295,10 +294,6 @@ public abstract class ServoMotorSubsystem extends Subsystem {
         }
 
         mMasterStickyFault = mMaster.getStickyFaultField();
-        if (false) { // TODO fix
-            DriverStation.reportError(mConstants.kName + ": Talon Fault! " + mMasterStickyFault.toString(), false);
-            mMaster.clearStickyFaults(0);
-        }
 
         /*
         StatusSignalValue.waitForAll(0.01,

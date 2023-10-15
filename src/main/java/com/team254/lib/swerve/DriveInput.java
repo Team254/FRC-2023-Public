@@ -1,11 +1,8 @@
 package com.team254.lib.swerve;
 
-import com.team254.lib.control.RadiusController;
-import com.team254.lib.control.SwerveHeadingController;
 import com.team254.lib.util.LatchedBoolean;
 import com.team254.lib.util.TimeDelayedBoolean;
 import com.team254.lib.util.ToggleBoolean;
-import com.team254.lib.util.Util;
 
 public class DriveInput {
     private double throttle;

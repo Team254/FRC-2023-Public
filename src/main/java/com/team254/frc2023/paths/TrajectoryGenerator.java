@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrajectoryGenerator {
-    // TODO tune
     private static final double kMaxAccel = 2.54;
     private static final double kMaxVoltage = 9.0;
 
@@ -39,11 +38,9 @@ public class TrajectoryGenerator {
     }
 
     public void forceRegenerateTrajectories() {
-//        if (mTrajectorySet == null) {
-            System.out.println("Generating trajectories...");
-            mTrajectorySet = new TrajectorySet();
-            System.out.println("Finished trajectory generation");
-//        }
+        System.out.println("Generating trajectories...");
+        mTrajectorySet = new TrajectorySet();
+        System.out.println("Finished trajectory generation");
     }
 
     public TrajectorySet getTrajectorySet() {
@@ -274,7 +271,7 @@ public class TrajectoryGenerator {
 
             waypoints.add(new Pose2d(1.9176, -0.762, Rotation2d.fromDegrees(180.0)));
             headings.add(Rotation2d.fromDegrees(180));
-//
+            
             waypoints.add(new Pose2d(0.8176, -0.762, Rotation2d.fromDegrees(180.0)));
             headings.add(Rotation2d.fromDegrees(180));
 
