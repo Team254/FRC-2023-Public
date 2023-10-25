@@ -7,7 +7,6 @@ import com.team254.lib.geometry.Pose2d;
 import com.team254.lib.geometry.Rotation2d;
 import com.team254.lib.geometry.Translation2d;
 
-// TODO could make this generic
 public class ErrorTracker {
     List<Pose2d> tracking_error_over_time_;
     int max_num_samples_;

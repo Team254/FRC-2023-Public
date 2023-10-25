@@ -42,7 +42,4 @@ public abstract class PoseSpline {
         Twist2d motion_direction = new Twist2d(dx, dy, dtheta);
         return new Pose2dWithMotion(getPose2d(t), motion_direction, getCurvature(t), getDCurvature(t) / getVelocity(t));
     }
-
-    // TODO add toString
-    // public abstract String toString();
 }

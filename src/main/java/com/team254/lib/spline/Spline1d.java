@@ -11,7 +11,4 @@ public abstract class Spline1d {
 
     // ds^3/dt
     public abstract double getJerk(double t);
-
-    // TODO add toString
-    // public abstract String toString();
 }

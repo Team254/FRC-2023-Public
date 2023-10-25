@@ -14,7 +14,6 @@ public class SuperstructureMotionPlanner {
     private static final double kFeederIntakingRaisingAmount = 5.0; // Inches up
     private static final double kGroundConeIntakingRaisingAmount = 3.0; // Inches up
     private static final double kScoringWaitTime = 0.1; // Seconds
-    //TODO add constants for goal illegal zone
 
     protected LinkedList<SuperstructureState> mIntermediateStateQueue = new LinkedList<>();
     private Optional<SuperstructureState> mCurrentCommandedState = Optional.empty();
@@ -26,7 +25,6 @@ public class SuperstructureMotionPlanner {
         mScoringOffset = x;
     }
 
-    // TODO generate proper intermediate states based on movement required
     public synchronized void setDesiredState(SuperstructureState desiredState, SuperstructureState currentState) {
         Optional<SuperstructureState> mLastDesiredState = mDesiredState;
         mDesiredState = Optional.of(new SuperstructureState(desiredState));

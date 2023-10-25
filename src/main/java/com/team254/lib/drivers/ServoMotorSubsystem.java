@@ -425,7 +425,7 @@ public abstract class ServoMotorSubsystem extends Subsystem {
         return rotationsToUnits(mMotionStateSetpoint.vel() - mPeriodicIO.velocity_rps);
     }
 
-    public synchronized boolean hasFinishedTrajectory() { // TODO - Determine units of active_trajectory...
+    public synchronized boolean hasFinishedTrajectory() { 
         return Util.epsilonEquals(mPeriodicIO.active_trajectory_position, getSetpoint(), Math.max(1, mConstants.kDeadband));
     }
 
@@ -458,7 +458,7 @@ public abstract class ServoMotorSubsystem extends Subsystem {
     public synchronized void setSetpointPositionPID(double units, double feedforward_v) {
         mPeriodicIO.demand = constrainRotations(homeAwareUnitsToRotations(units));
         double feedforward_ticks_per_100ms = unitsToRotations(feedforward_v);
-        mPeriodicIO.feedforward = feedforward_ticks_per_100ms * (mConstants.kKf + mConstants.kKd / 100.0) / 1023.0; // TODO fix ff units for new API
+        mPeriodicIO.feedforward = feedforward_ticks_per_100ms * (mConstants.kKf + mConstants.kKd / 100.0) / 1023.0; 
         if (mControlState != ControlState.POSITION_PID) {
             mControlState = ControlState.POSITION_PID;
         }
@@ -477,7 +477,7 @@ public abstract class ServoMotorSubsystem extends Subsystem {
         Setpoint setpoint = mSetpointGenerator.getSetpoint(mMotionProfileConstraints, goal, mMotionStateSetpoint, mPeriodicIO.timestamp + mConstants.kLooperDt);
         mPeriodicIO.demand = constrainRotations(homeAwareUnitsToRotations(setpoint.motion_state.pos()));
         mPeriodicIO.feedforward = mConstants.kPositionKf + (unitsToRotations(feedforward_v + setpoint.motion_state.vel()) * mConstants.kKf +
-            unitsToRotations(setpoint.motion_state.acc()) * mConstants.kKa); //TODO confirm feedforward with new API units
+            unitsToRotations(setpoint.motion_state.acc()) * mConstants.kKa);
         mMotionStateSetpoint = setpoint.motion_state;
     }
 
@@ -524,7 +524,7 @@ public abstract class ServoMotorSubsystem extends Subsystem {
         return mControlState.toString();
     }
 
-    public synchronized double getPredictedPositionUnits(double lookahead_secs) { // TODO - Determine units of active_trajectory...
+    public synchronized double getPredictedPositionUnits(double lookahead_secs) {
         double predicted_units = mPeriodicIO.active_trajectory_position +
                 lookahead_secs * mPeriodicIO.active_trajectory_velocity +
                 0.5 * mPeriodicIO.active_trajectory_acceleration * lookahead_secs * lookahead_secs;

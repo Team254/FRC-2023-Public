@@ -213,14 +213,12 @@ public class RobotState {
             if (initial_field_to_odom_.isEmpty() || disabledAndNeverEnabled) {
                 var odom_to_vehicle_translation = disabledAndNeverEnabled ? Translation2d.identity() : getOdomToVehicle(visionTimestamp).getTranslation();
                 field_to_odom_.put(new InterpolatingDouble(visionTimestamp), visionFieldToVehicle.getTranslation().translateBy(odom_to_vehicle_translation.inverse()));
-                //System.out.println("Setting initial_field_to_odom");
                 initial_field_to_odom_ = Optional.of(field_to_odom_.lastEntry().getValue());
                 mKalmanFilter.setXhat(0, field_to_odom_.lastEntry().getValue().x());
                 mKalmanFilter.setXhat(1, field_to_odom_.lastEntry().getValue().y());
                 mDisplayVisionPose = visionFieldToVehicle;
 
-            } else if (DriverStation.isEnabled()) { //TODO Add to Constant File
-                //SmartDashboard.putBoolean("CORRECTING", true);
+            } else if (DriverStation.isEnabled()) { 
                 var field_to_odom = visionFieldToVehicle.getTranslation().translateBy(odomToVehicle.getTranslation().inverse());
                 if(DriverStation.isAutonomous()) {
                     final double kMaxDistanceToAccept = 2.0;
@@ -239,7 +237,6 @@ public class RobotState {
                 }
             } else {
                 mDisplayVisionPose = null;
-                //SmartDashboard.putBoolean("CORRECTING", false);
             }
         }
     }
@@ -282,12 +279,8 @@ public class RobotState {
         Pose2d odomToVehicle = getOdomToVehicle(timestamp);
 
         Translation2d fieldToOdom = getFieldToOdom(timestamp);
-        //SmartDashboard.putNumber("Offset X", offset.getTranslation().x());
-        //SmartDashboard.putNumber("Offset Y", offset.getTranslation().y());
-//        return new Pose2d(getCurrentKalmanFieldToOdomOffset().transformBy(odomToVehicle).getTranslation(), odomToVehicle.getRotation());
         return new Pose2d(fieldToOdom.translateBy(odomToVehicle.getTranslation()), odomToVehicle.getRotation());
 
-//        return new Pose2d(getCurrentKalmanFieldToOdomOffset().getTranslation().add(odomToVehicle.getTranslation()), odomToVehicle.getRotation());
     }
 
     public synchronized Pose2d getFieldToVehicleAbsolute(double timestamp) {

@@ -82,7 +82,6 @@ public class SwerveDriveDynamicsConstraint<S extends IPose2d<S> & ICourse2d<S> &
     public MinMaxAcceleration getMinMaxAcceleration(S state,
                                                     double velocity) {
         // Just check drive acceleration limits.
-        // TODO also check steering velocity.
         return new MinMaxAcceleration(-limits_.kMaxDriveAcceleration, limits_.kMaxDriveAcceleration);
     }
 }

@@ -17,7 +17,6 @@ public class YawRateConstraint implements TimingConstraint<Pose2dWithMotion> {
             // This is turn in place.
             return Double.MAX_VALUE;
         } else {
-            // TODO once all in meters, remove this conversion.
             // Heading rate in rad/m
             final double heading_rate = state.getHeadingRate();
             // Return max velocity in m/s.

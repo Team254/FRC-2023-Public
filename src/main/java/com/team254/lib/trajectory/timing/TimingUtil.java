@@ -108,7 +108,6 @@ public class TimingUtil {
                 }
                 // If the max acceleration for this constraint state is more conservative than what we had applied, we
                 // need to reduce the max accel at the predecessor state and try again.
-                // TODO: Simply using the new max acceleration is guaranteed to be valid, but may be too conservative.
                 // Doing a search would be better.
                 final double actual_acceleration = (constraint_state.max_velocity * constraint_state.max_velocity
                         - predecessor.max_velocity * predecessor.max_velocity) / (2.0 * ds);
@@ -175,7 +174,6 @@ public class TimingUtil {
                 }
                 // If the min acceleration for this constraint state is more conservative than what we have applied, we
                 // need to reduce the min accel and try again.
-                // TODO: Simply using the new min acceleration is guaranteed to be valid, but may be too conservative.
                 // Doing a search would be better.
                 final double actual_acceleration = (constraint_state.max_velocity * constraint_state.max_velocity
                         - successor.max_velocity * successor.max_velocity) / (2.0 * ds);

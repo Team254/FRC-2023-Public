@@ -70,7 +70,6 @@ public class GroundIntakeDeploy extends ServoMotorSubsystem {
 
     @Override
     public synchronized void outputTelemetry(boolean disabled) {
-        // TODO: Move reading this limit switch to mPeriodicIO in servomotor subsystem
         if (disabled) {
             SmartDashboard.putBoolean("Ground Intake Reverse Limit Switch closed", reverse_limit_switch);
             SmartDashboard.putNumber("Ground Intake Position Inches", this.getPosition());

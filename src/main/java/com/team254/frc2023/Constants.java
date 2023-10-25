@@ -58,7 +58,7 @@ public class Constants {
     // Drive constants
     public static final double kDriveReduction = (14.0 / 50.0) * (28.0 / 16.0) * (15.0 / 45.0);
     public static final double kSteerReduction = (14.0 / 50.0) * (10.0 / 60.0); //For Practice
-    public static final double kDriveWheelDiameter = 0.10033 * 81.0 / 84.213; /// meters, TODO measure
+    public static final double kDriveWheelDiameter = 0.10033 * 81.0 / 84.213; /// meters
     public static final double kDriveTrackwidthMeters = 0.52705; // DONE Measure and set trackwidth
     public static final double kDriveWheelbaseMeters = 0.52705; // DONE Measure and set wheelbase
 
@@ -173,7 +173,6 @@ public class Constants {
     public static final Rotation2d kFrontRightAziEncoderOffset = kPracticeBot ? Rotation2d.fromDegrees(103.44) : Rotation2d.fromDegrees(73.57); //-16.43
     public static final Rotation2d kFrontLeftAziEncoderOffset = kPracticeBot ? Rotation2d.fromDegrees(17.03) : Rotation2d.fromDegrees(-127.53); //142.47
 
-    // TODO test converted values
     public static final double kMk4AziMMKp = 6.000; //0.505
     public static final double kMk4AziMMKi = 0;
     public static final double kMk4AziMMKd = 0;//0.0004; //0.2 / 500
@@ -194,7 +193,6 @@ public class Constants {
     public static final double kMk4DriveVelocityKv = 1 / 101.98 * 12;// (kMaxVelocityMetersPerSecond / (Math.PI * Constants.kDriveWheelDiameter * Constants.kDriveReduction));
     public static final double kMk4DriveVelocityKs = 0.8;
 
-    // TODO check angular acceleration value
     public static final double kMaxAngularSpeedRadiansPerSecond = kMaxVelocityMetersPerSecond /
             Math.hypot(kDriveTrackwidthMeters / 2.0, kDriveWheelbaseMeters / 2.0);
     public static final double kMaxAngularAccelerationRadiansPerSecondSquared = kMaxAccelerationMetersPerSecondSquared /
@@ -220,12 +218,10 @@ public class Constants {
     // Swerve Heading Controller
     public static final double kSwerveHeadingControllerErrorTolerance = 1.5; // degree error
 
-    //TODO tune heading controller snap PID
     public static final double kSnapSwerveHeadingKp = 0.05;
     public static final double kSnapSwerveHeadingKi = 0.0;
     public static final double kSnapSwerveHeadingKd = 0.0075;
 
-    //TODO tune heading controller maintain PID
     public static final double kMaintainSwerveHeadingKpHighVelocity = 0.0225;
     public static final double kMaintainSwerveHeadingKiHighVelocity = 0.0;
     public static final double kMaintainSwerveHeadingKdHighVelocity = 0.003;
@@ -242,12 +238,10 @@ public class Constants {
     public static final double kHeadingControllerKffa = 0.0;
     public static final double kHeadingControllerKs = 0.0;
 
-    //TODO tune radius controller snap PID
     public static final double kSnapRadiusKp = 2.0;
     public static final double kSnapRadiusKi = 0.0;
     public static final double kSnapRadiusKd = 0.0;
 
-    //TODO tune radius controller maintain PID
     public static final double kMaintainRadiusKp = 1.5;
     public static final double kMaintainRadiusKi = 0.0;
     public static final double kMaintainRadiusKd = 0.0;
@@ -290,7 +284,6 @@ public class Constants {
         return false;
     }
 
-    // TODO fix constants
     public static final ServoMotorSubsystem.ServoMotorSubsystemConstants kElevatorConstants = new ServoMotorSubsystem.ServoMotorSubsystemConstants();
     static {
         kElevatorConstants.kName = "Elevator";
@@ -328,7 +321,6 @@ public class Constants {
         kElevatorConstants.kMaxUnitsLimit = 40.1;
     }
 
-    // TODO fix constants
     public static final ServoMotorSubsystem.ServoMotorSubsystemConstants kLateratorConstants = new ServoMotorSubsystem.ServoMotorSubsystemConstants();
     static {
         kLateratorConstants.kName = "Laterator";
@@ -445,7 +437,6 @@ public class Constants {
 
     public static final int kGroundIntakeRollerId = 17;
 
-    // TODO find below constants
     public static final double kLateratorAngle = Math.toRadians(10.0); // radians from horizontal
     public static final double kHeightClearBumperPosition = 10.0 * 2.54 / 100;  // when below this, extension required to clear bumper
     public static final double kExtensionClearBumperPosition = 12.0 * 2.54 / 100; // inches from superstructure home to bumper end

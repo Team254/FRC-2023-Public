@@ -66,88 +66,24 @@ public abstract class SwerveModule extends Subsystem {
 
 
     public void configureTalons() throws RuntimeException {
-//        TODO voltage compensation
-//        TODO: investigate - might not be necessary due to https://pro.docs.ctr-electronics.com/en/stable/docs/api-reference/api-usage/migration-guide.html?highlight=saturation
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.configVoltageCompSaturation(Constants.kMaxDriveVoltage, Constants.kLongCANTimeoutMs),
-//                "Failed to set voltage compensation");
-//
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 100.0, 120.0, 0.0), Constants.kLongCANTimeoutMs),
-//                "Failed to set supply current limit");
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 100.0, 120.0, 0.0), Constants.kLongCANTimeoutMs),
-//                "Failed to set stator current limit");
-//
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_5Ms, Constants.kLongCANTimeoutMs),
-//                "Failed to set velocity measurement period");
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.configVelocityMeasurementWindow(32, Constants.kLongCANTimeoutMs),
-//                "Failed to set velocity measurement window");
 
         mDriveConfig = new TalonFXConfiguration();
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotor.getConfigurator().refresh(mDriveConfig);});
+
         mDriveConfig.CurrentLimits.SupplyCurrentLimit = 120;
         mDriveConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         mDriveConfig.CurrentLimits.StatorCurrentLimit = 120;
         mDriveConfig.CurrentLimits.StatorCurrentLimitEnable = false;
 
-//        mDriveMotor.enableVoltageCompensation(true);
-//        mDriveMotor.setNeutralMode(NeutralMode.Brake);
         mDriveConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-//        mDriveMotor.setInverted(TalonFXInvertType.Clockwise);
         mDriveConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-//        TODO set sensor phase?
-//        mDriveMotor.setSensorPhase(true);
-//        mDriveMotor.setSelectedSensorPosition(0.0);
-//        mDriveMotor.configVelocityMeasurementPeriod(SensorVelocityMeasPeriod.Period_5Ms, 10);
-//        mDriveMotor.configVelocityMeasurementWindow(32, 10);
-
-        // Reduce CAN status frame rates
-    //    TalonUtil.checkErrorWithThrow(
-    //            mDriveMotor.setStatusFramePeriod(
-    //                    StatusFrameEnhanced.Status_1_General,
-    //                    250,
-    //                    Constants.kLongCANTimeoutMs
-    //            ),
-    //            "Failed to configure Falcon status frame period"
-    //    );
-        //TODO confirm this is equivalent to status frame 1
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotor.getBridgeOuput().setUpdateFrequency(100, 0.05);});
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotor.getFault_Hardware().setUpdateFrequency(4, 0.05);});
-
-        // Reduce CAN status frame rates
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.setStatusFramePeriod(
-//                        StatusFrameEnhanced.Status_2_Feedback0,
-//                        5,
-//                        Constants.kLongCANTimeoutMs
-//                ),
-//                "Failed to configure Falcon status frame period"
-//        );
-
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotorVelocitySignalValue.setUpdateFrequency(200, 0.05);});
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotorPositionSignalValue.setUpdateFrequency(200, 0.05);});
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotorClosedLoopErrorSignalValue.setUpdateFrequency(200, 0.05);});
         PhoenixProUtil.checkErrorAndRetry(() -> {return mDriveMotor.setRotorPosition(0.0, 0.05);});
-
-
-        // PID
-        // TODO(get rid of dependency on Constants)
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.config_kI(0, Constants.kMk4DriveVelocityKi, Constants.kLongCANTimeoutMs),
-//                "Failed to set kI");
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.config_kP(0, Constants.kMk4DriveVelocityKp, Constants.kLongCANTimeoutMs),
-//                "Failed to set kP");
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.config_kD(0, Constants.kMk4DriveVelocityKd, Constants.kLongCANTimeoutMs),
-//                "Failed to set kD");
-//        TalonUtil.checkErrorWithThrow(
-//                mDriveMotor.config_kF(0, Constants.kMk4DriveVelocityKf, Constants.kLongCANTimeoutMs),
-//                "Failed to set kF");
 
         mDriveConfig.Slot0.kI = Constants.kMk4DriveVelocityKi;
         mDriveConfig.Slot0.kP = Constants.kMk4DriveVelocityKp;
@@ -157,21 +93,6 @@ public abstract class SwerveModule extends Subsystem {
 
         TalonUtil.applyAndCheckConfiguration(mDriveMotor, mDriveConfig);
 
-        // Steering
-//        TODO voltage compensation
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, Constants.kLongCANTimeoutMs),
-//                "Failed to set encoder");
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.configVoltageCompSaturation(Constants.kMaxDriveVoltage, Constants.kLongCANTimeoutMs),
-//                "Failed to set voltage compensation");
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(false, 100.0, 120.0, 0.0), Constants.kLongCANTimeoutMs),
-//                "Failed to set supply current limit");
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 100.0, 120.0, 0.0), Constants.kLongCANTimeoutMs),
-//                "Failed to set stator current limit");
-
         mSteerConfig = new TalonFXConfiguration();
         mSteeringMotor.getConfigurator().refresh(mSteerConfig);
         mSteerConfig.CurrentLimits.SupplyCurrentLimit = 120;
@@ -179,58 +100,16 @@ public abstract class SwerveModule extends Subsystem {
         mSteerConfig.CurrentLimits.StatorCurrentLimit = 120;
         mSteerConfig.CurrentLimits.StatorCurrentLimitEnable = false;
 
-//        mSteeringMotor.enableVoltageCompensation(true);
-//        mSteeringMotor.setNeutralMode(NeutralMode.Coast);
         mSteerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         mSteerConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-//        mSteeringMotor.setInverted(TalonFXInvertType.CounterClockwise);
-//        TODO set sensor phase?
-//        mSteeringMotor.setSensorPhase(false);
-
-        // Reduce CAN status frame rates
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.setStatusFramePeriod(
-//                        StatusFrameEnhanced.Status_1_General,
-//                        5,
-//                        Constants.kLongCANTimeoutMs
-//                ),
-//                "Failed to configure Falcon status frame period"
-//        );
-
 
         PhoenixProUtil.checkErrorAndRetry(() -> { return mSteeringMotor.getBridgeOuput().setUpdateFrequency(200, 0.05); });
         PhoenixProUtil.checkErrorAndRetry(() -> {return mSteeringMotor.getFault_Hardware().setUpdateFrequency(4, 0.05);});
-
-
-        // Reduce CAN status frame rates
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.setStatusFramePeriod(
-//                        StatusFrameEnhanced.Status_2_Feedback0,
-//                        5,
-//                        Constants.kLongCANTimeoutMs
-//                ),
-//                "Failed to configure Falcon status frame period"
-//        );
 
         PhoenixProUtil.checkErrorAndRetry(() -> { return mSteeringMotorPositionSignalValue.setUpdateFrequency(200, 0.05); });
         PhoenixProUtil.checkErrorAndRetry(() -> { return mSteeringMotorVelocitySignalValue.setUpdateFrequency(200, 0.05); });
         PhoenixProUtil.checkErrorAndRetry(() -> { return mSteeringMotorClosedLoopErrorSignalValue.setUpdateFrequency(200, 0.05); });
 
-
-        // PID
-        // TODO(get rid of dependency on Constants)
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.config_kP(0, Constants.kMk4AziKp, Constants.kLongCANTimeoutMs),
-//                "Failed to set kP");
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.config_kI(0, Constants.kMk4AziKi, Constants.kLongCANTimeoutMs),
-//                "Failed to set kI");
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.config_kD(0, Constants.kMk4AziKd, Constants.kLongCANTimeoutMs),
-//                "Failed to set kD");
-//        TalonUtil.checkErrorWithThrow(
-//                mSteeringMotor.config_kF(0, 0.0, Constants.kLongCANTimeoutMs),
-//                "Failed to set kF");
         mSteerConfig.Slot0.kI = Constants.kMk4AziMMKi;
         mSteerConfig.Slot0.kP = Constants.kMk4AziMMKp;
         mSteerConfig.Slot0.kD = Constants.kMk4AziMMKd;
@@ -314,7 +193,6 @@ public abstract class SwerveModule extends Subsystem {
     }
 
     public SwerveModuleState getPreviewedState() {
-        // TODO plumb this through
         return new SwerveModuleState(
             getDriveVelocity(),
             kDriveMotorCoefficient * StatusSignalValue.getLatencyCompensatedValue(mDriveMotorPositionSignalValue, mDriveMotorVelocitySignalValue),
@@ -402,8 +280,7 @@ public abstract class SwerveModule extends Subsystem {
 
     @Override
     public void readPeriodicInputs() {
-//        mDriveMotor.feed();
-//        mSteeringMotor.feed();
+
     }
 
     @Override

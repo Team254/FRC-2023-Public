@@ -7,7 +7,6 @@ import com.team254.lib.util.Util;
  * and efficiency losses).  The motor is assumed to be symmetric forward/reverse.
  */
 public class DCMotorTransmission {
-    // TODO add electrical constants?  (e.g. current)
 
     // All units must be SI!
     protected final double speed_per_volt_;  // rad/s per V (no load)
