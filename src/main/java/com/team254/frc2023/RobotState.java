@@ -186,24 +186,17 @@ public class RobotState {
         if (!mLatestVisionUpdate.isEmpty()) {
             //Get the Timestamp of the Vision Reading
             double visionTimestamp = mLatestVisionUpdate.get().getTimestamp();
+            
             Pose2d odomToVehicle = getOdomToVehicle(visionTimestamp);
+
             //Rotating Camera by Yaw Offset
             Pose2d cameraToTag = Pose2d.fromTranslation(mLatestVisionUpdate.get().getCameraToTag().rotateBy(Constants.kLimelightConstants.getYawOffset()));
-            //SmartDashboard.putString("Robot to Camera", getRobotToCamera().toString());
-            // Pose2d robotToCamera = new Pose2d(getRobotToCamera().getTranslation(), Rotation2d.fromDegrees(SmartDashboard.getNumber("Yaw Angle", 2.39)));
 
             //Getting Vehicle to Tag in Field Frame
             Pose2d vehicleToTag = Pose2d.fromTranslation(Constants.kRobotToCamera.transformBy(cameraToTag).getTranslation().rotateBy(odomToVehicle.getRotation()));
-            //SmartDashboard.putString("Vehicle to Tag", vehicleToTag.toString());
 
             //Getting Field to Vehicle via Vehicle to Tag
             Pose2d visionFieldToVehicle = mLatestVisionUpdate.get().getFieldToTag().transformBy(vehicleToTag.inverse());
-            //SmartDashboard.putString("Vision Field to Vehicle", visionFieldToVehicle.toString());
-            //SmartDashboard.putString("Vision Odom to Vehicle", odomToVehicle.toString());
-            //SmartDashboard.putNumber("Vision Field to Vehicle X", visionFieldToVehicle.getTranslation().x());
-            //SmartDashboard.putNumber("Vision Odom to Vehicle X", odomToVehicle.getTranslation().x());
-            //SmartDashboard.putNumber("Vision Field to Vehicle Y", visionFieldToVehicle.getTranslation().y());
-            //SmartDashboard.putNumber("Vision Odom to Vehicle Y", odomToVehicle.getTranslation().y());
 
             if (!mPoseAcceptor.shouldAcceptVision(mLatestVisionUpdate.get().getTimestamp(), visionFieldToVehicle, vehicleToTag, vehicle_velocity_measured_)) {
                 return;
